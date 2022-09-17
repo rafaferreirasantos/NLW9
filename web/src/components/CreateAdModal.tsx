@@ -1,12 +1,24 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { Check } from "phosphor-react";
 import { Input } from "./forms/Input";
+import { GameController, Check, CaretDown } from "phosphor-react";
+import { Listbox, Transition } from '@headlessui/react'
+
 
 import { CreateAdBanner } from './CreateAdBanner';
-import { GameController } from "phosphor-react";
+import { Game } from "../App";
+import { useState } from "react";
 
-function CreateAdModal() {
+interface CreateAdModealProps {
+  games: Game[];
+}
+
+function CreateAdModal({ games }: CreateAdModealProps) {
+  const [game, setGame] = useState<Game>();
+
+  function teste() {
+    console.log('mudou')
+  }
   return (
     <Dialog.Root>
       <CreateAdBanner />
@@ -17,12 +29,36 @@ function CreateAdModal() {
           <form className="mt-8 flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="game" className="font-semibold">Qual o game?</label>
-              <Input
+              {/* <Input
                 id="game"
                 type="text"
                 placeholder="Selecione o game que deseja jogar?"
                 className="bg-zinc-900 px-4 py-3 rounded text-sm placeholder:text-zinc-500"
-              />
+              /> */}
+              <Listbox value={game} onChange={setGame}>
+                <Listbox.Button className={`flex rounded text-sm h-11 bg-zinc-900 items-center justify-between px-4 ${(game == null ? "text-zinc-500" : "text-white")}`}>
+                  <div className="w-6"></div>
+                  {game?.title ?? "Selecione o game que deseja jogar"}<CaretDown size={24} /></Listbox.Button>
+                <Transition
+                  enter="transition duration-100 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-75 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                >
+                  <Listbox.Options className="bg-zinc-900 rounded py-2">
+                    {games.sort((a, b) => a.title < b.title ? -1 : 1).map((x) => (
+                      <Listbox.Option className="h-10 px-8 text-sm hover:bg-zinc-500 flex align-middle items-center rounded"
+                        key={x.id}
+                        value={x}
+                      >
+                        {x.title}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </Listbox>
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="name">Seu nome (ou nickname)</label>

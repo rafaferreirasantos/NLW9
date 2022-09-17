@@ -4,7 +4,7 @@ import { GameBanner } from './components/GameBanner';
 import { useState, useEffect } from 'react';
 import CreateAdModal from "./components/CreateAdModal";
 
-interface Game {
+export interface Game {
   id: string,
   title: string,
   bannerUrl: string,
@@ -37,7 +37,7 @@ function App() {
           );
         })};
       </div>
-      <CreateAdModal />
+      <CreateAdModal games={games} />
     </div>
   )
 }
