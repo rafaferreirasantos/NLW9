@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
     './src/**/*.tsx',
@@ -16,5 +17,9 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant('on', '&[data-state="on"]')
+    }),
+  ],
 }
