@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: "center",
-    paddingHorizontal: 32,
+    paddingHorizontal: 24,
     marginTop: 28,
     justifyContent: 'space-between',
   },
@@ -18,9 +18,12 @@ export const styles = StyleSheet.create({
     width: 72,
     height: 40
   },
+  left: {
+    padding: 4,
+  },
   right: {
-    width: 20,
-    height: 20
+    width: 28,
+    height: 28,
   },
   cover: {
     width: 311,
